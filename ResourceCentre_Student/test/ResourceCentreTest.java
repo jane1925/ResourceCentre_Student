@@ -167,31 +167,31 @@ public class ResourceCentreTest {
 		//fail("Not yet implemented");
 		// write your code here
 		
-		//boundary
+		// boundary // Test that there is a valid(non-empty) item list for loan 
 		assertNotNull("test if there is valid Chromebook arraylist to loan from", chromebookList);
 				
 		ResourceCentre.addChromebook(chromebookList, cb1);
 				
-		// normal
+		// normal // Test that an item can be loan out
 		Boolean ok = ResourceCentre.doLoanChromebook(chromebookList, "CB0011", "8-8-2020");
 		assertTrue("Test if an available item is ok to loan?", ok);
 		assertFalse(chromebookList.get(0).getIsAvailable());
 		assertEquals(chromebookList.get(0).getDueDate(),"8-8-2020");
 				
 						
-		//error condition
+		// error condition // Test that item that has been loaned out cannot be loan again
 		ok = ResourceCentre.doLoanChromebook(chromebookList, "CB0011", "8-8-2020" );
 		assertFalse("Test if an same item is NOT ok to loan again?", ok);	
 				
-		//error condition
+		// error condition // Test that a new added item that been loaned out cannot be loan again
 		ResourceCentre.addChromebook(chromebookList, cb2);	
 		cb2.setIsAvailable(false);
 		ok = ResourceCentre.doLoanChromebook(chromebookList, "CB0012", "8-8-2020" );
 		assertFalse("Test that un-available item is NOT ok to loan?", ok);
 				
-		//error condition
+		// error condition // Test that cannot loan an non-exsiting item
 		ok = ResourceCentre.doLoanChromebook(chromebookList, "CB0013", "8-8-2020" );
-		assertFalse("Test that non-esiting item is NOT ok to loan?", ok);		
+		assertFalse("Test that non-exsiting item is NOT ok to loan?", ok);		
 	}
 	
 	@Test
@@ -218,18 +218,21 @@ public class ResourceCentreTest {
 		//fail("Not yet implemented");
 		// write your code here
 		
-		//boundary
+		// boundary //Test that there is a valid(non-empty) item list 
 		assertNotNull("Test if there is valid Chromebook arraylist to add to", chromebookList);
 		ResourceCentre.addChromebook(chromebookList, cb1);
-		//error
+		
+		// error // Test that a newly added item cannot be return
 		Boolean isReturned = ResourceCentre.doReturnChromebook(chromebookList, "CB0011");
-		assertFalse("Test if available chromebook CC0011 is returned -false?", isReturned);		
-		//normal
+		assertFalse("Test if available chromebook CC0011 is returned -false?", isReturned);
+		
+		// normal // Test that an item that has been loan out can be return
 		ResourceCentre.addChromebook(chromebookList, cb2);
 		cb2.setIsAvailable(false);
 		isReturned = ResourceCentre.doReturnChromebook(chromebookList, "CB0012");
 		assertTrue("Test if loaned out chromebook CB0012 is returned- true", isReturned);
-		//error
+		
+		//error // Test that an non-existing item cannot be return
 		isReturned = ResourceCentre.doReturnChromebook(chromebookList, "CB0013");
 		assertFalse("Test if non-existing chromebook CB0013 is returned - false?", isReturned);
 	}
