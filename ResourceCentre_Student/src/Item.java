@@ -20,6 +20,7 @@ public class Item {
                 showAvailability(isAvailable),
                 dueDate);
         return itemInfo;
+        
     }
 	
 	public static String showAvailability(boolean isAvailable) {
